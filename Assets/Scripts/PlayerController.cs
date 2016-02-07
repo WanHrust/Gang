@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	void Move() {
+		float deltaTime = Time.deltaTime;
 		Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
 		m_RigidBody.MovePosition (m_RigidBody.position + movement);
 	}
