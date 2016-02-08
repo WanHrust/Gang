@@ -8,15 +8,21 @@ public class RocketController : MonoBehaviour {
 	public float m_Acceleration = 5f;
 	public float m_InitialSpeed = 30f; //m/s //TODO: How to adjust variable to correspond to player movement
 	public float m_GravityForce = 30f;
+	public float m_TimeScale = 0.00000001f;
 
 	float m_Timer;
 	float m_PrevTime = 0f;
 	float m_DeltaTime;
 	bool m_StopTime = false;
+	bool m_TimeIsScaled = false;
+
+	Vector3 m_NotScaledVelocity;
 	// Use this for initialization
 	void Start () {
+		
 		m_Rigidbody = GetComponent<Rigidbody> ();
 		m_Rigidbody.velocity = transform.forward * m_InitialSpeed;
+		m_NotScaledVelocity = m_Rigidbody.velocity ;
 	}
 	
 	// Update is called once per frame
@@ -55,6 +61,10 @@ public class RocketController : MonoBehaviour {
 		//m_Rigidbody.AddForce (transform.forward*m_Acceleration*m_DeltaTime, ForceMode.Impulse);
 
 		//m_Rigidbody.velocity = m_Rigidbody.velocity*Time.deltaTime;
+		if (m_TimeIsScaled) {
+			m_Rigidbody.velocity = m_Rigidbody.velocity * m_TimeScale; //TODO: thi is wrong!!! but works for now. We should NOT scale velocity every update
+		}
+			
 		m_Rigidbody.AddForce (transform.forward*m_Acceleration*Time.deltaTime, ForceMode.Impulse);
 	}
 	private void ToggleTimeStop() {
@@ -66,9 +76,13 @@ public class RocketController : MonoBehaviour {
 	}
 	private void ToggleTimeScale() {
 		if (Time.timeScale == 1f) {
-			Time.timeScale = 0.000001f;
+			Time.timeScale = m_TimeScale;
+			m_TimeIsScaled = true;
+			m_NotScaledVelocity = m_Rigidbody.velocity;
 		} else {
 			Time.timeScale = 1f;
+			m_TimeIsScaled = false;
+			m_Rigidbody.velocity = m_NotScaledVelocity;
 		}
 	}
 }
