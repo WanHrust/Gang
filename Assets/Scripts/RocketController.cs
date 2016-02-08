@@ -16,7 +16,7 @@ public class RocketController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		m_Rigidbody = GetComponent<Rigidbody> ();
-		//m_Rigidbody.velocity = transform.forward * m_InitialVelocity;
+		m_Rigidbody.velocity = transform.forward * m_InitialSpeed;
 	}
 	
 	// Update is called once per frame
@@ -33,8 +33,9 @@ public class RocketController : MonoBehaviour {
 			//ToggleStopTime ();
 		//}
 
-		if(Input.GetKeyDown("left shift")){
-			ToggleTimeStop ();
+		if(Input.GetKeyDown("left shift")){ 
+			//ToggleTimeStop ();
+			ToggleTimeScale ();
 		}
 	}
 	void OnMouseDown () {
@@ -49,15 +50,25 @@ public class RocketController : MonoBehaviour {
 	}
 	private void Move() {
 		//m_Rigidbody.MovePosition (m_Rigidbody.transform.position + m_Rigidbody.transform.forward*m_Speed*m_DeltaTime);
-		Vector3 movement = m_Rigidbody.transform.forward*m_InitialSpeed*m_DeltaTime + new Vector3(0f,-1f,0)*m_GravityForce*m_DeltaTime; //TODO: Should we use gravity?
-		m_Rigidbody.velocity = movement;
-		m_Rigidbody.AddForce (transform.forward*m_Acceleration*m_DeltaTime, ForceMode.Impulse);
+		//Vector3 movement = m_Rigidbody.transform.forward*m_InitialSpeed*m_DeltaTime + new Vector3(0f,-1f,0)*m_GravityForce*m_DeltaTime; //TODO: Should we use gravity?
+		//m_Rigidbody.velocity = movement;
+		//m_Rigidbody.AddForce (transform.forward*m_Acceleration*m_DeltaTime, ForceMode.Impulse);
+
+		//m_Rigidbody.velocity = m_Rigidbody.velocity*Time.deltaTime;
+		m_Rigidbody.AddForce (transform.forward*m_Acceleration*Time.deltaTime, ForceMode.Impulse);
 	}
 	private void ToggleTimeStop() {
 		if (m_StopTime) {
 			m_StopTime = false;
 		} else {
 			m_StopTime = true;
+		}
+	}
+	private void ToggleTimeScale() {
+		if (Time.timeScale == 1f) {
+			Time.timeScale = 0.000001f;
+		} else {
+			Time.timeScale = 1f;
 		}
 	}
 }
