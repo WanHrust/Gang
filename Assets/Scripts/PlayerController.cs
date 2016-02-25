@@ -44,9 +44,11 @@ public class PlayerController : MonoBehaviour {
 	void Animate(){
 		if (Input.GetButton(m_MovementAxisName)) {
 			if (m_MovementInputValue < 0f) {
-				transform.forward = new Vector3 (0f, 0f, -1f);
+				//transform.forward = new Vector3 (0f, 0f, -1f);
+                transform.right = new Vector3(0f, 0f, 1f);
 			} else {
-				transform.forward = new Vector3 (0f, 0f, 1f);
+				//transform.forward = new Vector3 (0f, 0f, 1f);
+                transform.right = new Vector3(0f, 0f, -1f);
 			}
 			m_Animator.SetInteger("Speed", 1);
 
