@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Animate(){
+		m_Animator.speed = 1 / Time.timeScale;
 		if (Input.GetButton(m_MovementAxisName)) {
 			if (m_MovementInputValue < 0f) {
 				//transform.forward = new Vector3 (0f, 0f, -1f);
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Move() {
 		float deltaTime = Time.deltaTime;
-		Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+		Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime * (1/Time.timeScale); //TODO: SEE_LEDIO: multiplying by 1/TimeScale makes it ignore the scale Factor. Same applied in Camera Control
 		m_RigidBody.MovePosition (m_RigidBody.position + movement);
 	}
 

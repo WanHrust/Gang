@@ -50,12 +50,12 @@ public class CameraFollow : MonoBehaviour
 		// If the player has moved beyond the x margin...
 		if(CheckXMargin())
 			// ... the target x coordinate should be a Lerp between the camera's current x position and the player's current x position.
-			targetX = Mathf.Lerp(transform.position.x, player.position.x, xSmooth * Time.deltaTime);
+			targetX = Mathf.Lerp(transform.position.x, player.position.x, xSmooth * Time.deltaTime *(1/Time.timeScale)); //TODO: SEE_LEDIO: 1/TimeScale to make it move real time
 
 		// If the player has moved beyond the y margin...
 		if(CheckYMargin())
 			// ... the target y coordinate should be a Lerp between the camera's current y position and the player's current y position.
-			targetY = Mathf.Lerp(transform.position.y, player.position.y, ySmooth * Time.deltaTime);
+			targetY = Mathf.Lerp(transform.position.y, player.position.y, ySmooth * Time.deltaTime * (1/Time.timeScale)); //TODO: SEE_LEDIO: 1/TimeScale to make it move real time
 
 		// The target x and y coordinates should not be larger than the maximum or smaller than the minimum.
 		targetX = Mathf.Clamp(targetX, minXAndY.x, maxXAndY.x);

@@ -30,6 +30,7 @@ public class TimeController : MonoBehaviour {
 			Time.timeScale = 1f;
 			m_TimeIsScaled = false;
 		}
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 	}
 
 	//getter for m_TimeIsScaled. Protecting the variable from changing from outside the class.
