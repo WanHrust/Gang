@@ -4,6 +4,7 @@ using System.Collections;
 public class RocketController : MonoBehaviour {
 	private Rigidbody m_Rigidbody;
 	public TimeController m_TimeController;
+	private RotateOnMouseDrag m_RotateOnMouseDrag; //TODO: SEE_LEDIO: Now we can just attach this script to any object that we want to be rotated on mouse drag!
 	//private string m_TimeStopAxisName = "TimeStop";
 	//private float m_TimeStopAxisValue;
 	public float m_Acceleration = 5f;
@@ -12,10 +13,13 @@ public class RocketController : MonoBehaviour {
 	private float m_PrevTimeScale; //store the value of time scale of the previous frame. Required to check if the scale has changed
 
 	Vector3 m_NotScaledVelocity;
+
+
 	// Use this for initialization
 	void Start () {
 		
 		m_Rigidbody = GetComponent<Rigidbody> ();
+		m_RotateOnMouseDrag = GetComponent<RotateOnMouseDrag> ();
 		m_Rigidbody.velocity = transform.forward * m_InitialSpeed;
 		m_NotScaledVelocity = m_Rigidbody.velocity ;
 		m_PrevTimeScale = Time.timeScale;
@@ -24,10 +28,9 @@ public class RocketController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		UpdateOnTimeScale();
+	
 	}
-	void OnMouseDown () {
-		ReverseDirection ();
-	}
+
 	void FixedUpdate() {
 		Move ();
 	}
@@ -61,4 +64,5 @@ public class RocketController : MonoBehaviour {
 		m_PrevTimeScale = Time.timeScale; //update m_PrevTimeScale to the current time scale after we done cheking if it changed.
 
 	}
+
 }

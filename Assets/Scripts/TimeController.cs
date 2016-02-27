@@ -20,8 +20,6 @@ public class TimeController : MonoBehaviour {
 		}
 	}
 
-
-
 	private void ToggleTimeScale() {
 		if (Time.timeScale == 1f) {
 			Time.timeScale = m_TimeScale;
@@ -30,7 +28,7 @@ public class TimeController : MonoBehaviour {
 			Time.timeScale = 1f;
 			m_TimeIsScaled = false;
 		}
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale; //TODO: SEE_LEDIO: this line actually solves the problem with jiggling 
 	}
 
 	//getter for m_TimeIsScaled. Protecting the variable from changing from outside the class.
