@@ -46,7 +46,7 @@ public class RocketController : MonoBehaviour {
 //			//m_Rigidbody.velocity = m_Rigidbody.velocity * Time.timeScale; //TODO: thi works but we don't know why!!! but works for now. We should NOT scale velocity every update
 //		}
 			
-		m_Rigidbody.AddForce (transform.forward*m_Acceleration*Time.deltaTime, ForceMode.Impulse);
+		m_Rigidbody.AddForce (transform.forward*m_Acceleration*Time.deltaTime*Time.timeScale, ForceMode.Impulse); //TODO: SEE_LEDIO: Found why the speed was changine at time scale. Have to scale the acceleration with time Scale AS well!
 	}
 
 	

@@ -11,7 +11,7 @@ public class RotateOnMouseDrag : MonoBehaviour {
 	float xDeg = 0.0f;
 	//float yDeg = 0.0f;
 
-
+	private bool rotate;
 	// Use this for initialization
 	void Start () {
 	
@@ -19,10 +19,19 @@ public class RotateOnMouseDrag : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButton (0)) {
+		if (rotate) {
 			Rotate ();
 		}
-	
+	}
+
+	void OnMouseDown(){
+		if (Input.GetMouseButton (0)) {
+			rotate = true;
+		}
+	}
+
+	void OnMouseUp(){
+			rotate = false;
 	}
 
 	private void Rotate() {
