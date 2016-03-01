@@ -11,7 +11,7 @@ public class RocketController : MonoBehaviour {
 	public float m_InitialSpeed = 30f; //m/s //TODO: How to adjust variable to correspond to player movement
 
 	private float m_PrevTimeScale; //store the value of time scale of the previous frame. Required to check if the scale has changed
-
+	private bool m_ThrusterOn = true;
 	Vector3 m_NotScaledVelocity;
 
 
@@ -35,6 +35,9 @@ public class RocketController : MonoBehaviour {
 		Move ();
 	}
 
+	void OnCollisionEnter() {
+		m_ThrusterOn = false;
+	}
 	private void ReverseDirection() {
 		m_Rigidbody.transform.forward = -m_Rigidbody.transform.forward;
 	}
@@ -45,11 +48,10 @@ public class RocketController : MonoBehaviour {
 //		if (m_TimeController.IsTimeScaled()) {
 //			//m_Rigidbody.velocity = m_Rigidbody.velocity * Time.timeScale; //TODO: thi works but we don't know why!!! but works for now. We should NOT scale velocity every update
 //		}
-			
+		if(m_ThrusterOn)
 		m_Rigidbody.AddForce (transform.forward*m_Acceleration*Time.deltaTime*Time.timeScale, ForceMode.Impulse); //TODO: SEE_LEDIO: Found why the speed was changine at time scale. Have to scale the acceleration with time Scale AS well!
 	}
-
-	
+		
 	//TODO: SEE_LEDIO: This function will handle everthing that has to be done with object after time scale has changed.
 	// Will need similar funciton for each class we want to be affected by time scale
 	private void UpdateOnTimeScale(){
